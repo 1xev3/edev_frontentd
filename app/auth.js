@@ -38,6 +38,24 @@ export default new class Auth {
     }
   }
 
+  async logout() {
+    const url = `${this.API_URL}/auth/jwt/logout`;
+    const response = await this.makeAuthorizedRequest(url, 'POST');
+    if (response.ok) {
+      return true
+    } 
+    return false
+  }
+
+  async checkLogin() {
+    try {
+      await this.getUserData()
+    } catch (error) {
+      return false
+    }
+    return true
+  }
+
   async getAuthToken() {
     const token = Cookies.get('token');
     if (!token) {
@@ -66,7 +84,7 @@ export default new class Auth {
     if (response.ok) {
       return await response.json();
     } else {
-      throw new Error('Не удалось получить данные пользователя');
+      throw new Error('Cannot get user data');
     }
   }
 

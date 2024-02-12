@@ -2,32 +2,47 @@
 
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useRouter } from 'next/navigation';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Auth from '../auth.js'
 
 const Login = () => {
   const router = useRouter()
 
-  // if (Auth.getUserData()) {
-  //   router.push("/dashboard")
-  // }
+
+  useEffect( () => {
+
+    const auth_check = async () => {
+      console.log(await Auth.checkLogin())
+      if (await Auth.checkLogin()) {
+        router.push("/dashboard")
+      }
+    }
+
+    auth_check()
+  })
+
+  
 
   async function LoginFormAction(formData) {
     let email = formData.get("email")
     let pass = formData.get("password")
 
-    if (await Auth.login(email, pass)) {
-      router.push("/dashboard")
-    } else {
-      //TODO
+    try {
+      await Auth.login(email, pass)
+      return
+    } catch (error) {
+      console.log(error)
+      return
     }
+
+    // router.push("/dashboard")
   }
 
   return (
     <section className="bg-zinc-50 dark:bg-zinc-900">
 
-      <button type="button" className="flex absolute items-center self-center ml-4 mt-4 p-2 px-4 mb-10  text-white" onClick={() => router.back()}>
+      <button type="button" className="flex absolute items-center self-center ml-4 mt-4 p-2 px-4 mb-10 text-white hover:bg-zinc-700 rounded-full" onClick={() => router.back()}>
         <IoMdArrowRoundBack/> 
         <p className="ml-4">Back</p>
       </button>
