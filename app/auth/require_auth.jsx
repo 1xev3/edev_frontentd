@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Auth from './provider'; // Import the Auth class
 
 import LoadingPage from './loading_page'
-import LoginPage from "./login_page"
+import AuthPage from "./auth_page"
 
 const RequireAuth = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
@@ -14,6 +14,7 @@ const RequireAuth = ({ children }) => {
         setIsAuthenticated(true);
       })
       .catch((error) => {
+        console.log("Not logged in");
         setIsAuthenticated(false);
       });
     };
@@ -22,12 +23,12 @@ const RequireAuth = ({ children }) => {
   }, []);
 
   if (isAuthenticated === null) {
-    return <LoadingPage/>; // You can replace this with any loading animation or component
+    return <LoadingPage text="One second, please"/>; // You can replace this with any loading animation or component
   }
 
   // If user is not authenticated, render nothing or a message
   if (!isAuthenticated) {
-    return <LoginPage />; // You can replace this with any UI component or message indicating authentication is required
+    return <AuthPage />; // You can replace this with any UI component or message indicating authentication is required
   }
 
   // If user is authenticated, render the children components

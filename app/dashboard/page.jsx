@@ -23,7 +23,9 @@ export default function Dashboard() {
                     <p className="text-gray-500 pl-2 font-light">dashboard</p>
                 </a>
                 <div className="flex space-x-4 items-center">
-                    <button className="flex items-center bg-zinc-800 hover:bg-zinc-700 p-2 px-6 rounded-full" onClick={logout}>
+                    <a href="/account">Account</a>
+
+                    <button className="flex items-center bg-zinc-800 border border-zinc-700 hover:bg-zinc-700 p-2 px-4 rounded-full" onClick={logout}>
                         <CiLogout className="mr-2"/>
                         Logout
                     </button>

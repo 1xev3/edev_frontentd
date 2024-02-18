@@ -6,6 +6,15 @@ export default new class Auth {
     this.API_URL = process.env.API_URL;
   }
 
+  parseJwt(token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+  }
+
   login(email, pass) {
     const url = `${this.API_URL}/auth/jwt/login`;
 
@@ -26,6 +35,18 @@ export default new class Auth {
     })
   }
 
+  register(email, password, nickname) {
+    const url = `${this.API_URL}/auth/register`;
+
+    return axios.post(url, {
+      email:email,
+      password:password,
+      nickname:nickname
+    }).then((response) => {
+      this.login(email, password);
+    })
+  }
+
   logout() {
     return this.makeAuthorizedRequest(`${this.API_URL}/auth/jwt/logout`, 'POST').then((response) => {
       Cookies.remove('token')
@@ -38,7 +59,7 @@ export default new class Auth {
 
   makeAuthorizedRequest(url, method, body) {
     const token = this.getAuthToken();
-
+    
     return axios({
       method: method,
       url: url,
