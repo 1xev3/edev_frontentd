@@ -1,6 +1,9 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -11,7 +14,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="dark bg-zinc-900">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <ToastContainer theme="dark" pauseOnFocusLoss={false}/>
+        {children}
+      </body>
     </html>
   );
 }

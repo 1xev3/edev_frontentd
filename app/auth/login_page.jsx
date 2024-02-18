@@ -1,42 +1,37 @@
 'use client'
 
 import { IoMdArrowRoundBack } from "react-icons/io";
+import { useState } from "react";
 import { useRouter } from 'next/navigation';
-import { useState, useEffect } from "react";
 
-import Auth from '../auth.js'
+import { toast } from 'react-toastify';
 
-const Login = () => {
+import Auth from './provider'
+
+import LoadingPage from "./loading_page";
+
+export default function LoginPage () {
   const router = useRouter()
-
-
-  useEffect( () => {
-
-    const auth_check = async () => {
-      console.log(await Auth.checkLogin())
-      if (await Auth.checkLogin()) {
-        router.push("/dashboard")
-      }
-    }
-
-    auth_check()
-  })
-
+  const [loading, setLoading] = useState(false)
   
-
   async function LoginFormAction(formData) {
     let email = formData.get("email")
     let pass = formData.get("password")
 
-    try {
-      await Auth.login(email, pass)
-      return
-    } catch (error) {
-      console.log(error)
-      return
-    }
+    setLoading(true);
 
-    // router.push("/dashboard")
+    Auth.login(email, pass).then((response) => {
+      setLoading(false);
+      window.location.reload();
+    }).catch((error) => {
+      console.log(error);
+      toast.error(error.message);
+      setLoading(false);
+    })
+  }
+
+  if (loading) {
+    return <LoadingPage/>
   }
 
   return (
@@ -50,7 +45,10 @@ const Login = () => {
 
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         
-        <h1 className="mb-10 font-bold text-3xl">edev</h1>
+        <a href="/" className="flex text-white font-bold text-2xl items-center mb-6">
+          edev
+          <p className="text-gray-500 pl-2 font-light">login</p>
+        </a>
 
         <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-zinc-800 dark:border-zinc-700">
           <div className="p-6">
@@ -87,5 +85,3 @@ const Login = () => {
     </section>
   );
 };
-  
-export default Login;

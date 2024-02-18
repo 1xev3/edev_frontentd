@@ -3,7 +3,7 @@
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useRouter } from 'next/navigation'
 
-const Register = () => {
+export default function Register() {
   const router = useRouter()
 
   return (
@@ -52,5 +52,3 @@ const Register = () => {
     </section>
   );
 };
-  
-export default Register;
