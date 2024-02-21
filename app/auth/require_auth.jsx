@@ -10,13 +10,18 @@ const RequireAuth = ({ children }) => {
   useEffect(() => {
     // Check if the user is authenticated
     const checkAuth = async () => {
-      Auth.getUserData().then(() => {
+      if (Auth.checkToken()) {
         setIsAuthenticated(true);
-      })
-      .catch((error) => {
-        console.log("Not logged in");
+      } else {
         setIsAuthenticated(false);
-      });
+      }
+      // Auth.getUserData().then(() => {
+      //   setIsAuthenticated(true);
+      // })
+      // .catch((error) => {
+      //   console.log("Not logged in");
+      //   setIsAuthenticated(false);
+      // });
     };
 
     checkAuth();

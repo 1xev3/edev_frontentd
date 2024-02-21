@@ -48,13 +48,25 @@ export default new class Auth {
   }
 
   logout() {
-    return this.makeAuthorizedRequest(`${this.API_URL}/auth/jwt/logout`, 'POST').then((response) => {
-      Cookies.remove('token')
-    });
+    Cookies.remove('token')
+    return this.makeAuthorizedRequest(`${this.API_URL}/auth/jwt/logout`, 'POST');
   }
 
   getAuthToken() {
     return Cookies.get('token');
+  }
+
+  checkToken() {
+    const token = this.getAuthToken();
+    if (!token) {
+      return false;
+    }
+
+    if (Date.now() >= this.parseJwt(token).exp*1000) {
+      return false;
+    }
+
+    return true;
   }
 
   makeAuthorizedRequest(url, method, body) {
@@ -76,6 +88,6 @@ export default new class Auth {
   }
 
   updateUserProfile(data) {
-    return this.makeAuthorizedRequest(`${this.API_URL}/users/me`, 'PUT', data);
+    return this.makeAuthorizedRequest(`${this.API_URL}/users/me`, 'PATCH', data);
   }
 }

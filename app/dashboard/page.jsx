@@ -2,7 +2,6 @@
 
 import Navbar from "../ui/navbar"
 import Auth from "../auth/provider"
-
 import RequireAuth from "../auth/require_auth"
 
 import { CiLogout } from "react-icons/ci";
@@ -23,7 +22,7 @@ export default function Dashboard() {
                     <p className="text-gray-500 pl-2 font-light">dashboard</p>
                 </a>
                 <div className="flex space-x-4 items-center">
-                    <a href="/account">Account</a>
+                    <a href="dashboard/account">Account</a>
 
                     <button className="flex items-center bg-zinc-800 border border-zinc-700 hover:bg-zinc-700 p-2 px-4 rounded-full" onClick={logout}>
                         <CiLogout className="mr-2"/>
