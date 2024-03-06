@@ -29,9 +29,7 @@ export default new class Auth {
       }
     }).then((response) => {
       console.log("Logged in!");
-      const data = response.data;
-      const token = data.access_token;
-      Cookies.set('token', token);
+      Cookies.set('token', response.data.access_token);
     })
   }
 
@@ -41,7 +39,8 @@ export default new class Auth {
     return axios.post(url, {
       email:email,
       password:password,
-      nickname:nickname
+      nickname:nickname,
+      group_id:0
     }).then((response) => {
       this.login(email, password);
     })
