@@ -16,7 +16,7 @@ export default new class Auth {
   }
 
   login(email, pass) {
-    const url = `${this.API_URL}/auth/jwt/login`;
+    const url = `${this.API_URL}/auth/login`;
 
     return axios.post(url, new URLSearchParams({
       username: email,
@@ -49,7 +49,7 @@ export default new class Auth {
 
   logout() {
     Cookies.remove('token')
-    return this.makeAuthorizedRequest(`${this.API_URL}/auth/jwt/logout`, 'POST');
+    return this.makeAuthorizedRequest(`${this.API_URL}/auth/logout`, 'POST');
   }
 
   getAuthToken() {

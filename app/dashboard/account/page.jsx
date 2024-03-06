@@ -44,7 +44,7 @@ export default function DefaultPage() {
                 </div>
             </Navbar>
 
-            <div className="container mx-auto p-4 px-2 w-full mt-20 md:px-10">
+            <form onSubmit={e => { e.preventDefault(); }} className="container mx-auto p-4 px-2 w-full mt-20 md:px-10">
                 <div className="flex justify-between my-4">
                     <h1 className="text-3xl">{account.nickname}</h1>
                     <button className="py-2 px-6 bg-green-600 rounded-xl">Save</button>
@@ -75,21 +75,16 @@ export default function DefaultPage() {
                     </div>
 
                     <div className="p-6 rounded-xl bg-zinc-800 shadow-lg">
-                        <h3 className="text-2xl pb-2">Bio</h3>
-                        <p className="text-zinc-400">Your account bio</p>
-                        <input 
-                            type="text"
-                            name="bio" 
-                            defaultValue={account.bio} 
-                            className="bg-zinc-700 text-white rounded-lg p-2 mt-2 w-full"
-                        />
+                        <h3 className="text-2xl pb-2">Group ID</h3>
+                        <p className="text-zinc-400">Your group identifier</p>
+                        <p>{account.group_id}</p>
                     </div>
                 </div>
 
                 <div className="flex justify-center mt-4 space-x-4">
                     <button className="py-2 px-6 bg-zinc-800 rounded-xl">Logout</button>
                 </div>
-            </div>
+            </form>
 
                 
         </RequireAuth>
