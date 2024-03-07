@@ -17,10 +17,10 @@ export default function Dashboard() {
     return (
         <RequireAuth>
             <Navbar>
-                <a href="/" className="flex text-white font-bold text-2xl items-center">
+                <div className="flex text-white font-bold text-2xl items-center">
                     edev
-                    <p className="text-gray-500 pl-2 font-light">dashboard</p>
-                </a>
+                    <a href="/dashboard" className="text-gray-500 pl-2 font-light hover:text-gray-100">{">"} todo</a>
+                </div>
                 <div className="flex space-x-4 items-center">
                     <a href="dashboard/account">Account</a>
 

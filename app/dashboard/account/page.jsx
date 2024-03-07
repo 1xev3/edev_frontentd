@@ -39,7 +39,7 @@ export default function DefaultPage() {
             <Navbar>
                 <div className="flex text-white font-bold text-2xl items-center">
                     edev
-                    <a href="/dashboard" className="text-gray-500 pl-2 font-light hover:text-gray-100">{">"} dashboard</a>
+                    <a href="/dashboard" className="text-gray-500 pl-2 font-light hover:text-gray-100">{">"} todo</a>
                     <a href="/dashboard/account" className="text-gray-500 pl-2 font-light hover:text-gray-100">{">"} account</a>
                 </div>
             </Navbar>
@@ -82,7 +82,7 @@ export default function DefaultPage() {
                 </div>
 
                 <div className="flex justify-center mt-4 space-x-4">
-                    <button className="py-2 px-6 bg-zinc-800 rounded-xl">Logout</button>
+                    <button onClick={logout} className="py-2 px-6 bg-zinc-800 rounded-xl">Logout</button>
                 </div>
             </form>
 
