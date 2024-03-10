@@ -3,10 +3,11 @@
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
+import Link from "next/link";
 
 import { toast } from 'react-toastify';
 
-import Auth from './provider'
+import Api from './api'
 
 import LoadingPage from "./loading_page";
 
@@ -26,7 +27,7 @@ function RegisterPage({setLoading, setRegisterPage}) {
 
     setLoading(true);
 
-    Auth.register(email, password, nickname).then((response) => {
+    Api.register(email, password, nickname).then((response) => {
       setLoading(false);
       window.location.reload();
     }).catch((error) => {
@@ -39,10 +40,10 @@ function RegisterPage({setLoading, setRegisterPage}) {
   return (
     <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
       
-      <a href="/" className="flex text-white font-bold text-2xl items-center mb-6">
+      <Link href="/" className="flex text-white font-bold text-2xl items-center mb-6">
         edev
         <p className="text-gray-500 pl-2 font-light">register</p>
-      </a>
+      </Link>
 
       <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-zinc-800 dark:border-zinc-700">
         <div className="p-6">
@@ -96,7 +97,7 @@ function LoginPage({setLoading, setRegisterPage}) {
 
     setLoading(true);
 
-    Auth.login(email, pass).then((response) => {
+    Api.login(email, pass).then((response) => {
       setLoading(false);
       window.location.reload();
     }).catch((error) => {
@@ -109,10 +110,10 @@ function LoginPage({setLoading, setRegisterPage}) {
   return (
     <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
       
-      <a href="/" className="flex text-white font-bold text-2xl items-center mb-6">
+      <Link href="/" className="flex text-white font-bold text-2xl items-center mb-6">
         edev
         <p className="text-gray-500 pl-2 font-light">login</p>
-      </a>
+      </Link>
 
       <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-zinc-800 dark:border-zinc-700">
         <div className="p-6">

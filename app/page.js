@@ -6,12 +6,11 @@ const DefaultPage = () => {
   return (
     <main>
       <Navbar>
-        <a href="/" className="flex text-white font-bold text-2xl items-center">
+        <Link href="/" className="flex text-white font-bold text-2xl items-center">
             edev
             <p className="text-gray-500 pl-2 font-light">docs</p>
-        </a>
+        </Link>
         <div className="flex space-x-4 items-center">
-            {/* <a className="text-gray-300 hover:text-white">Docs</a> */}
             <Link className="p-2 px-8 rounded-full text-black bg-green-500 hover:bg-green-400 font-bold" href="/dashboard">Client area</Link>
         </div>
       </Navbar>

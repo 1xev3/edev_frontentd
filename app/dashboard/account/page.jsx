@@ -3,22 +3,23 @@
 import Navbar from "../../ui/navbar"
 import RequireAuth from "../../auth/require_auth";
 
-import Auth from "../../auth/provider"
+import Api from "../../auth/api"
 import LoadingPage from "../../auth/loading_page";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function DefaultPage() {
     const [account, setAccount] = useState(null);
 
     async function logout() {
-        Auth.logout().then((response) => {
+        Api.logout().then((response) => {
             window.location.reload()
         });
     };
 
     const fetchData = () => {
-        Auth.getUserData().then((response) => {
+        Api.getUserData().then((response) => {
             setAccount(response.data);
             console.log(response.data);
         }).catch((err) => {
@@ -39,8 +40,8 @@ export default function DefaultPage() {
             <Navbar>
                 <div className="flex text-white font-bold text-2xl items-center">
                     edev
-                    <a href="/dashboard" className="text-gray-500 pl-2 font-light hover:text-gray-100">{">"} todo</a>
-                    <a href="/dashboard/account" className="text-gray-500 pl-2 font-light hover:text-gray-100">{">"} account</a>
+                    <Link href="dashboard" className="text-gray-500 pl-2 font-light hover:text-gray-100">{">"} todo</Link>
+                    <Link href="dashboard/account" className="text-gray-500 pl-2 font-light hover:text-gray-100">{">"} account</Link>
                 </div>
             </Navbar>
 

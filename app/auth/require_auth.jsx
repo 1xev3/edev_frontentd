@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Auth from './provider'; // Import the Auth class
+import Api from './api'; // Import the Auth class
 
 import LoadingPage from './loading_page'
 import AuthPage from "./auth_page"
@@ -10,18 +10,11 @@ const RequireAuth = ({ children }) => {
   useEffect(() => {
     // Check if the user is authenticated
     const checkAuth = async () => {
-      if (Auth.checkToken()) {
+      if (Api.checkToken()) {
         setIsAuthenticated(true);
       } else {
         setIsAuthenticated(false);
       }
-      // Auth.getUserData().then(() => {
-      //   setIsAuthenticated(true);
-      // })
-      // .catch((error) => {
-      //   console.log("Not logged in");
-      //   setIsAuthenticated(false);
-      // });
     };
 
     checkAuth();

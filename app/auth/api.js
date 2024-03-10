@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
-export default new class Auth {
+export default new class Api {
   constructor() {
     this.API_URL = process.env.API_URL;
   }
@@ -88,5 +88,26 @@ export default new class Auth {
 
   updateUserProfile(data) {
     return this.makeAuthorizedRequest(`${this.API_URL}/users/me`, 'PATCH', data);
+  }
+
+
+  // sections related
+  getSection(id) {
+    return this.makeAuthorizedRequest(`${this.API_URL}/todo/sections/${id}`, 'GET');
+  }
+
+  getSections() {
+    return this.makeAuthorizedRequest(`${this.API_URL}/todo/sections`, 'GET');
+  }
+
+  createNewSection(name) {
+    const data = {
+      'name': name ? name : "New section",
+    }
+    return this.makeAuthorizedRequest(`${this.API_URL}/todo/sections`, 'POST', data);
+  }
+
+  deleteSection(id) {
+    return this.makeAuthorizedRequest(`${this.API_URL}/todo/sections/${id}`, 'DELETE');
   }
 }
