@@ -107,6 +107,13 @@ export default new class Api {
     return this.makeAuthorizedRequest(`${this.API_URL}/todo/sections`, 'POST', data);
   }
 
+  updateSection(sectionID, newName) {
+    const data = {
+      'name': newName ? newName : "New section",
+    }
+    return this.makeAuthorizedRequest(`${this.API_URL}/todo/sections/${sectionID}`, 'PUT', data);
+  }
+
   deleteSection(id) {
     return this.makeAuthorizedRequest(`${this.API_URL}/todo/sections/${id}`, 'DELETE');
   }
