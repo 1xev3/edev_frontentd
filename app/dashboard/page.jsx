@@ -130,7 +130,6 @@ export default function Dashboard() {
                 <SectionPanel 
                     section={section} 
                     tasks={tasks} 
-                    onDeleteSection={onDeleteSection} 
                     onNameEdit={onSectionNameEdit} 
                     onCreateNewTask={onCreateNewTask}
                     onTaskDelete={onTaskDelete}

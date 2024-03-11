@@ -12,7 +12,7 @@ import {
 
 import { useState } from "react";
 
-export default function SectionPanel({section, tasks, onDeleteSection, onNameEdit, onCreateNewTask, onTaskDelete, onTaskEdit}) {
+export default function SectionPanel({section, tasks, onNameEdit, onCreateNewTask, onTaskDelete, onTaskEdit}) {
 
     const [taskname, setTaskname] = useState('');
     const [selected, setSelected] = useState({});
@@ -68,12 +68,6 @@ export default function SectionPanel({section, tasks, onDeleteSection, onNameEdi
                         className="bg-transparent w-full"
                     />
                 </div>
-
-                <div>
-                    <button onClick={() => onDeleteSection(section.id)} className="flex text-zinc-600 hover:text-red-400 items-center text-lg">
-                        <FaTrash/>
-                    </button>
-                </div>
             </div>
 
             <div className="flex flex-col space-y-4">
@@ -81,7 +75,7 @@ export default function SectionPanel({section, tasks, onDeleteSection, onNameEdi
                     <div key={task.id} className="shblock flex flex-col space-y-6">
 
                         <div className="flex items-center space-x-4">
-                            <button onClick={() => taskChange(section.id, task, {'completed': !task.completed})}>
+                            <button className="hover:text-emerald-500" onClick={() => taskChange(section.id, task, {'completed': !task.completed})}>
                                 {task.completed 
                                     ? <FaCheckCircle className="text-2xl"/> 
                                     : <FaRegCircle className="text-2xl"/> 
@@ -106,25 +100,26 @@ export default function SectionPanel({section, tasks, onDeleteSection, onNameEdi
                             </button>
                         </div>
                         
-                        {selected.id == task.id ?
-                            <div className="text-zinc-400 space-y-2">
-                                <div className="flex flex-row items-center space-x-2">
-                                    <FaRegStickyNote/>
-                                    <DelayedInput
-                                        value={task.description}
-                                        placeholder="Description"
-                                        delay={400}
-                                        callback={({value}) => taskChange(section.id, task, {'description': value})}
-                                        className="bg-transparent w-full text-white"
-                                    />
-                                </div>
+                        <div className={`text-zinc-400 space-y-2 ${selected.id != task.id && "hidden"}`}>
+                            <div className="flex flex-row items-center space-x-2">
+                                <FaRegStickyNote/>
+                                <DelayedInput
+                                    value={task.description}
+                                    placeholder="Description"
+                                    delay={400}
+                                    callback={({value}) => taskChange(section.id, task, {'description': value})}
+                                    className="bg-transparent w-full text-white"
+                                />
+                            </div>
 
-                                <div className="flex flex-row justify-end items-center space-x-2">
+
+                            <div className="relative">
+                                <div className="absolute right-0 bottom-0 flex flex-row justify-end items-center space-x-2">
                                     <FaRegCalendar/>
                                     <span>{task.created_at.toLocaleString()}</span>
                                 </div>
                             </div>
-                        : null}
+                        </div>
 
 
                     </div>
@@ -132,7 +127,9 @@ export default function SectionPanel({section, tasks, onDeleteSection, onNameEdi
 
                 <div className="shblock w-full h-full">
                     <div className="flex items-center space-x-4">
-                        <button onClick={() => {onCreateNewTask(section.id, taskname); setTaskname('');}} className="hover:text-emerald-400"><FaPlus/></button>
+                        <button onClick={() => {onCreateNewTask(section.id, taskname); setTaskname('');}} className="hover:text-emerald-400 ease-out duration-300 hover:rotate-90">
+                            <FaPlus/>
+                        </button>
                         <input value={taskname} onChange={handleTaskNameInput} placeholder="Enter task name" className="bg-transparent w-full"/>
                     </div>
                 </div>
