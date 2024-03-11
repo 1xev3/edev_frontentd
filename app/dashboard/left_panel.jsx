@@ -1,35 +1,38 @@
-import React from "react";
+import { useState } from "react";
+
 import Link from "next/link";
 import LoadingPage from "../auth/loading_page";
 import { FaList, FaHashtag, FaPlus, FaTrash } from "react-icons/fa";
 
-export default function LeftPanel({ sections, onCreateNewSection, onDeleteSection }) {
+export default function LeftPanel({ section, sections, onCreateNewSection, onDeleteSection }) {
+  const [opened, setOpened] = useState(false);
+
   if (!sections) {
     return <LoadingPage />;
   }
 
   return (
     <div>
-      <button className="flex sm:hidden p-4 text-xl">
+      <button onClick={() => setOpened(!opened)} className="flex sm:hidden p-4 text-xl">
         <FaList />
       </button>
 
-      <div className="bg-zinc-800 hidden flex-col h-full w-72 pb-4 rounded-md transition-transform -translate-x-full sm:flex sm:translate-x-0">
+      <div className={`shblock ${!opened ? "hidden" : null} absolute left-0 sm:block w-full sm:relative sm:w-72 p-0 pb-4 rounded-md`}>
         <div className="flex flex-row items-center space-x-4 p-4 text-lg font-bold">
           <FaHashtag />
           <h3>Sections</h3>
         </div>
 
-        <div className="flex-grow">
+        <div>
           <ul>
-            {sections.map((section) => (
-              <li key={section.id} className="mb-1 flex flex-row items-center space-x-2 justify-between hover:bg-zinc-700">
-                <Link href={`dashboard/?id=${section.id}`} className="flex flex-row items-center space-x-4 p-4 py-2 w-full">
+            {sections.map((sect) => (
+              <li key={sect.id} className={`mb-1 flex flex-row items-center space-x-2 justify-between hover:bg-zinc-700 ${ section && section.id == sect.id ? "bg-zinc-700":null}`}>
+                <Link onClick={() => setOpened(false)} href={`dashboard/?id=${sect.id}`} className="flex flex-row items-center space-x-4 p-4 py-2 w-full">
                   <FaList className="text-zinc-400" />
-                  <p>{section.name}</p>
+                  <p>{sect.name}</p>
                 </Link>
 
-                <button onClick={() => onDeleteSection(section.id)} className="pr-4 text-zinc-600 hover:text-red-400">
+                <button onClick={() => onDeleteSection(sect.id)} className="pr-4 text-zinc-600 hover:text-red-400">
                   <FaTrash />
                 </button>
               </li>

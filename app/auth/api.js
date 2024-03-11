@@ -117,4 +117,30 @@ export default new class Api {
   deleteSection(id) {
     return this.makeAuthorizedRequest(`${this.API_URL}/todo/sections/${id}`, 'DELETE');
   }
+
+  //tasks related
+  getTasks(section_id) {
+    return this.makeAuthorizedRequest(`${this.API_URL}/todo/sections/${section_id}/tasks`, 'GET');
+  }
+
+  createNewTask(section_id, task_name) {
+    const data = {
+      'name': task_name
+    }
+    return this.makeAuthorizedRequest(`${this.API_URL}/todo/sections/${section_id}/tasks`, 'POST', data);
+  }
+
+  updateTask(section_id, task_id, name, description, completed) {
+    let data = {};
+
+    name && (data["name"] = name);
+    description && (data["description"] = description);
+    completed != null && (data["completed"] = completed);
+
+    return this.makeAuthorizedRequest(`${this.API_URL}/todo/sections/${section_id}/tasks/${task_id}`, 'PUT', data);
+  }
+
+  deleteTask(section_id, task_id) {
+    return this.makeAuthorizedRequest(`${this.API_URL}/todo/sections/${section_id}/tasks/${task_id}`, 'DELETE');
+  }
 }

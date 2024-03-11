@@ -26,6 +26,12 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+@layer components {
+  .shblock {
+    @apply bg-zinc-800 rounded-md p-4 shadow-lg
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
