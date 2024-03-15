@@ -30,6 +30,10 @@ body {
   .shblock {
     @apply bg-zinc-800 rounded-md p-4 shadow-lg
   }
+
+  .grad_text {
+    @apply inline-block bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500
+  }
 }
 
 @layer utilities {

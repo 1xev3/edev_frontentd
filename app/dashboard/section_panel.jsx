@@ -44,6 +44,12 @@ export default function SectionPanel({section, tasks, onNameEdit, onCreateNewTas
         setSelected(task);
     }
 
+    const onSubmitNewTask = async (event, section, name) => {
+        event.preventDefault();
+        onCreateNewTask(section.id, name); 
+        setTaskname('');
+    }
+
     if (!section) {
         return (
             <div className="w-full text-center p-4">
@@ -127,10 +133,12 @@ export default function SectionPanel({section, tasks, onNameEdit, onCreateNewTas
 
                 <div className="shblock w-full h-full">
                     <div className="flex items-center space-x-4">
-                        <button onClick={() => {onCreateNewTask(section.id, taskname); setTaskname('');}} className="hover:text-emerald-400 ease-out duration-300 hover:rotate-90">
+                        <button onClick={(e) => onSubmitNewTask(e, section, taskname)} className="hover:text-emerald-400 ease-out duration-300 hover:rotate-90">
                             <FaPlus/>
                         </button>
-                        <input value={taskname} onChange={handleTaskNameInput} placeholder="Enter task name" className="bg-transparent w-full"/>
+                        <form onSubmit={(e) => onSubmitNewTask(e, section, taskname)}>
+                            <input value={taskname} onChange={handleTaskNameInput} placeholder="Enter task name" className="bg-transparent w-full"/>
+                        </form>
                     </div>
                 </div>
             </div>

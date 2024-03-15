@@ -90,8 +90,6 @@ export default function Dashboard() {
 
     const fetchTasks = async (section_id) => {
         Api.getTasks(section_id).then((response) => {
-            // let dat = response.data;
-            // dat.sort((a,b) => (a.id - b.id));
 
             let dat = response.data.map(task => ({
                 ...task,
@@ -106,6 +104,8 @@ export default function Dashboard() {
 
     const fetchSections = async () => {
         Api.getSections().then((response) => {
+            let dat = response.data;
+            dat.sort((a,b) => (a.id - b.id));
             setSections(response.data);
         }).catch((err) => {console.log(err)});
     };
