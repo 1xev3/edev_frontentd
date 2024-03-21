@@ -10,12 +10,13 @@ import LeftPanel from "./left_panel";
 import SectionPanel from "./section_panel";
 import Api from "../auth/api";
 
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaBars } from "react-icons/fa";
 
 
 export default function Dashboard() {
     const params = useSearchParams();
 
+    const [left_opened, setLeftOpened] = useState(false);
     const [section, setSection] = useState(null);
     const [sections, setSections] = useState(null);
     const [tasks, setTasks] = useState([]);
@@ -114,19 +115,29 @@ export default function Dashboard() {
         <RequireAuth>
             <Navbar>
                 <div className="flex text-white font-bold text-2xl items-center">
-                edev
-                <Link href="dashboard" className="text-gray-500 pl-2 font-light hover:text-gray-100">{">"} todo</Link>
-                </div>
-                <div className="flex space-x-4 items-center">
-                <Link href="dashboard/account" className="shblock flex items-center space-x-2 border border-zinc-700 hover:bg-zinc-700 p-2 px-4 rounded-full">
-                    <FaUser />
-                    <span className="hidden sm:block">My account</span>
-                </Link>
+                    <button onClick={() => setLeftOpened(!left_opened)} className="flex sm:hidden p-4 text-xl">
+                        <FaBars/>
+                    </button>
+                    edev
+                    <Link href="dashboard" className="text-gray-500 pl-2 font-light hover:text-gray-100">{">"} todo</Link>
+                    </div>
+                    <div className="flex space-x-4 items-center">
+                    <Link href="dashboard/account" className="shblock flex items-center space-x-2 border border-zinc-700 hover:bg-zinc-700 p-2 px-4 rounded-full">
+                        <FaUser />
+                        <span className="hidden sm:block">My account</span>
+                    </Link>
                 </div>
             </Navbar>
 
             <div className="flex flex-col sm:flex-row justify-between container mx-auto space-x-0 sm:space-x-4 p-4 px-2 w-full md:px-10 mt-5 sm:mt-20">
-                <LeftPanel section={section} sections={sections} onCreateNewSection={onCreateNewSection} onDeleteSection={onDeleteSection} />
+                <LeftPanel 
+                    section={section} 
+                    sections={sections} 
+                    onCreateNewSection={onCreateNewSection} 
+                    onDeleteSection={onDeleteSection}
+                    opened={left_opened}
+                    setOpened={setLeftOpened}
+                />
                 <SectionPanel 
                     section={section} 
                     tasks={tasks} 

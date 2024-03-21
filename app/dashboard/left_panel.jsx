@@ -2,22 +2,24 @@ import { useState } from "react";
 
 import Link from "next/link";
 import LoadingPage from "../auth/loading_page";
-import { FaList, FaHashtag, FaPlus, FaTrash, FaFolder } from "react-icons/fa";
+import { FaHashtag, FaPlus, FaTrash, FaFolder } from "react-icons/fa";
 
-export default function LeftPanel({ section, sections, onCreateNewSection, onDeleteSection }) {
-  const [opened, setOpened] = useState(false);
-
+export default function LeftPanel({ section, sections, onCreateNewSection, onDeleteSection, opened, setOpened }) {
   if (!sections) {
     return <LoadingPage />;
   }
 
+  async function bg_click(e) {
+    console.log()
+    if (e.target.ariaModal && opened) {
+      setOpened(!opened);
+    }
+  }
+
   return (
     <div>
-      <button onClick={() => setOpened(!opened)} className="flex sm:hidden p-4 text-xl">
-        <FaList/>
-      </button>
       
-      <div className={`${!opened ? "hidden sm:block sm:relative" : "bg-zinc-900/90 fixed left-0 top-0 z-[1055] h-full w-full overflow-y-auto overflow-x-hidden flex items-center"}`}>
+      <div onClick={bg_click} aria-modal="true" name="modal" className={`${!opened ? "hidden sm:block sm:relative" : "bg-zinc-900/90 fixed left-0 top-0 z-[1055] h-full w-full overflow-y-auto overflow-x-hidden flex items-center"}`}>
         <div className={"left-0 sm:block w-full sm:relative sm:w-72 p-0 pb-4 rounded-md " + (opened ? "shblock" : "")}>
           <div className="flex flex-row items-center space-x-4 p-4 text-2xl font-bold">
             <FaHashtag />

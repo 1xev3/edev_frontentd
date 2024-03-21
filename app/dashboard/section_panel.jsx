@@ -63,7 +63,7 @@ export default function SectionPanel({section, tasks, onNameEdit, onCreateNewTas
     return (
         <div className="w-full h-full">
 
-            <div className="shblock flex justify-between space-x-4 items-center mb-4 text-2xl">
+            <div className="p-2 flex justify-between space-x-4 items-center mb-4 text-2xl">
                 <div className="flex items-center w-full space-x-4 text-emerald-400">
                     <FaList/>
                     <DelayedInput
@@ -76,9 +76,9 @@ export default function SectionPanel({section, tasks, onNameEdit, onCreateNewTas
                 </div>
             </div>
 
-            <div className="flex flex-col space-y-4">
+            <div className="flex flex-col divide-y divide-dashed divide-zinc-700">
                 {tasks.map((task) => (
-                    <div key={task.id} className={`shblock flex flex-col space-y-6 ${task.completed && "bg-zinc-900 border-4 border-zinc-800"}`}>
+                    <div key={task.id} className={`flex flex-col p-6 px-2 space-y-6 ${task.completed && "text-gray-500"}`}>
 
                         <div className="flex items-center space-x-4">
                             <button className="hover:text-emerald-500" onClick={() => taskChange(section.id, task, {'completed': !task.completed})}>
@@ -131,7 +131,7 @@ export default function SectionPanel({section, tasks, onNameEdit, onCreateNewTas
                     </div>
                 ))}
 
-                <div className="shblock w-full h-full">
+                <div className="p-4 px-2 w-full h-full">
                     <div className="flex items-center space-x-4">
                         <button onClick={(e) => onSubmitNewTask(e, section, taskname)} className="hover:text-emerald-400 ease-out duration-300 hover:rotate-90">
                             <FaPlus/>
