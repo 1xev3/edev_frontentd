@@ -86,7 +86,11 @@ export default new class Api {
     return this.makeAuthorizedRequest(`${this.API_URL}/users/me`, 'GET');
   }
 
-  updateUserProfile(data) {
+  updateUserProfile(nickname, password) {
+    const data = {
+      'nickname': nickname,
+      'password': password
+    }
     return this.makeAuthorizedRequest(`${this.API_URL}/users/me`, 'PATCH', data);
   }
 

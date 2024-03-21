@@ -78,7 +78,7 @@ export default function SectionPanel({section, tasks, onNameEdit, onCreateNewTas
 
             <div className="flex flex-col space-y-4">
                 {tasks.map((task) => (
-                    <div key={task.id} className="shblock flex flex-col space-y-6">
+                    <div key={task.id} className={`shblock flex flex-col space-y-6 ${task.completed && "bg-zinc-900 border-4 border-zinc-800"}`}>
 
                         <div className="flex items-center space-x-4">
                             <button className="hover:text-emerald-500" onClick={() => taskChange(section.id, task, {'completed': !task.completed})}>
@@ -136,7 +136,7 @@ export default function SectionPanel({section, tasks, onNameEdit, onCreateNewTas
                         <button onClick={(e) => onSubmitNewTask(e, section, taskname)} className="hover:text-emerald-400 ease-out duration-300 hover:rotate-90">
                             <FaPlus/>
                         </button>
-                        <form onSubmit={(e) => onSubmitNewTask(e, section, taskname)}>
+                        <form className="w-full" onSubmit={(e) => onSubmitNewTask(e, section, taskname)}>
                             <input value={taskname} onChange={handleTaskNameInput} placeholder="Enter task name" className="bg-transparent w-full"/>
                         </form>
                     </div>

@@ -125,7 +125,7 @@ export default function Dashboard() {
                 </div>
             </Navbar>
 
-            <div className="flex flex-col sm:flex-row justify-between container mx-auto space-x-0 sm:space-x-4 p-4 px-2 w-full md:px-10 mt-20">
+            <div className="flex flex-col sm:flex-row justify-between container mx-auto space-x-0 sm:space-x-4 p-4 px-2 w-full md:px-10 mt-5 sm:mt-20">
                 <LeftPanel section={section} sections={sections} onCreateNewSection={onCreateNewSection} onDeleteSection={onDeleteSection} />
                 <SectionPanel 
                     section={section} 
