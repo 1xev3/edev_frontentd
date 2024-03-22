@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 import Link from "next/link";
-import Navbar from "../ui/navbar";
+import Navbar from "../ui/basic/navbar";
 import RequireAuth from "../auth/require_auth";
 import LeftPanel from "./left_panel";
 import SectionPanel from "./section_panel";

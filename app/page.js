@@ -1,4 +1,4 @@
-import Navbar from "./ui/navbar";
+import Navbar from "./ui/basic/navbar";
 
 import Link from "next/link";
 

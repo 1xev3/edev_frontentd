@@ -1,4 +1,6 @@
-import DelayedInput from "../ui/delayedinput";
+import DelayedInput from "../ui/basic/delayedinput";
+import AgreeModal from "../ui/agree_modal";
+
 import { 
     FaList, 
     FaTrash, 
@@ -15,7 +17,25 @@ import { useState } from "react";
 export default function SectionPanel({section, tasks, onNameEdit, onCreateNewTask, onTaskDelete, onTaskEdit}) {
 
     const [taskname, setTaskname] = useState('');
+    const [modal_opened, setModalOpened] = useState(false);
     const [selected, setSelected] = useState({});
+
+    const [delete_pretendent, setDeletePretendent] = useState(null);
+
+    async function onModalAccept() {
+        if (delete_pretendent != null) {
+            onTaskDelete(delete_pretendent.section_id, delete_pretendent.task_id)
+            setDeletePretendent(null);
+        }
+    }
+
+    async function taskDelete(section_id, task_id) {
+        setModalOpened(true);
+        setDeletePretendent({
+            "section_id": section_id,
+            "task_id": task_id
+        })
+    }
 
     const taskChange = async (section_id, orig_task, values) => {
         onTaskEdit(section_id, {
@@ -63,6 +83,8 @@ export default function SectionPanel({section, tasks, onNameEdit, onCreateNewTas
     return (
         <div className="w-full h-full">
 
+            <AgreeModal title="Are you sure?" onAccept={onModalAccept} opened={modal_opened} setOpened={setModalOpened}/>
+
             <div className="p-2 flex justify-between space-x-4 items-center mb-4 text-2xl">
                 <div className="flex items-center w-full space-x-4 text-emerald-400">
                     <FaList/>
@@ -97,7 +119,7 @@ export default function SectionPanel({section, tasks, onNameEdit, onCreateNewTas
                                 className="bg-transparent w-full"
                             />
 
-                            <button onClick={() => onTaskDelete(section.id, task.id)}>
+                            <button onClick={() => taskDelete(section.id, task.id)}>
                                 <FaTrash className="flex text-zinc-600 hover:text-red-400 items-center text-lg"/>
                             </button>
 
@@ -126,8 +148,6 @@ export default function SectionPanel({section, tasks, onNameEdit, onCreateNewTas
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                 ))}
 

@@ -1,6 +1,6 @@
 'use client'
 
-import Navbar from "../../ui/navbar"
+import Navbar from "../../ui/basic/navbar"
 import RequireAuth from "../../auth/require_auth";
 
 import Api from "../../auth/api"
